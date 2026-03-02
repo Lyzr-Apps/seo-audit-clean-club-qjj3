@@ -1,0 +1,64 @@
+{
+  "agent_name": "Internal Linking Agent",
+  "agent_id": "69a50aa18074d73c14ba554f",
+  "description": "Analyzes page content and suggests internal linking opportunities\u2014recommends anchor text, target pages, and orphan page connections to improve site architecture",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "summary": "string",
+    "link_recommendations": [
+      {
+        "source_page": "string",
+        "anchor_text": "string",
+        "target_page": "string",
+        "rationale": "string",
+        "priority": "string"
+      }
+    ],
+    "orphan_pages": [
+      {
+        "page": "string",
+        "issue": "string",
+        "recommendation": "string"
+      }
+    ],
+    "hub_page_strategies": [
+      {
+        "topic_cluster": "string",
+        "hub_page": "string",
+        "spoke_pages": ["string"],
+        "recommendation": "string"
+      }
+    ],
+    "general_recommendations": ["string"]
+  },
+  "example_response": {
+    "summary": "sample string",
+    "link_recommendations": [
+      {
+        "source_page": "sample string",
+        "anchor_text": "sample string",
+        "target_page": "sample string",
+        "rationale": "sample string",
+        "priority": "sample string"
+      }
+    ],
+    "orphan_pages": [
+      {
+        "page": "sample string",
+        "issue": "sample string",
+        "recommendation": "sample string"
+      }
+    ],
+    "hub_page_strategies": [
+      {
+        "topic_cluster": "sample string",
+        "hub_page": "sample string",
+        "spoke_pages": ["sample string"],
+        "recommendation": "sample string"
+      }
+    ],
+    "general_recommendations": ["sample string"]
+  }
+}

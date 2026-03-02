@@ -1,0 +1,360 @@
+{
+  "agent_name": "SEO Audit Manager",
+  "agent_id": "69a50ac5b804714191c768f9",
+  "description": "Coordinates all sub-agents, routes URL/content to each specialist, and aggregates findings into a unified SEO audit report with prioritized recommendations",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "executive_summary": "string",
+    "overall_score": "number",
+    "url_audited": "string",
+    "content_audit": {
+      "overall_score": "number",
+      "summary": "string",
+      "heading_structure": {
+        "score": "number",
+        "severity": "string",
+        "findings": [
+          "string"
+        ],
+        "recommendations": [
+          "string"
+        ]
+      },
+      "content_length": {
+        "score": "number",
+        "severity": "string",
+        "word_count": "number",
+        "findings": [
+          "string"
+        ],
+        "recommendations": [
+          "string"
+        ]
+      },
+      "readability": {
+        "score": "number",
+        "severity": "string",
+        "reading_level": "string",
+        "findings": [
+          "string"
+        ],
+        "recommendations": [
+          "string"
+        ]
+      },
+      "keyword_density": {
+        "score": "number",
+        "severity": "string",
+        "findings": [
+          "string"
+        ],
+        "recommendations": [
+          "string"
+        ]
+      },
+      "image_alt_text": {
+        "score": "number",
+        "severity": "string",
+        "findings": [
+          "string"
+        ],
+        "recommendations": [
+          "string"
+        ]
+      },
+      "content_gaps": {
+        "score": "number",
+        "severity": "string",
+        "findings": [
+          "string"
+        ],
+        "recommendations": [
+          "string"
+        ]
+      }
+    },
+    "keyword_research": {
+      "summary": "string",
+      "primary_keywords": [
+        {
+          "keyword": "string",
+          "search_intent": "string",
+          "difficulty": "string",
+          "relevance_score": "number",
+          "recommendation": "string"
+        }
+      ],
+      "secondary_keywords": [
+        {
+          "keyword": "string",
+          "search_intent": "string",
+          "difficulty": "string",
+          "relevance_score": "number",
+          "recommendation": "string"
+        }
+      ],
+      "long_tail_keywords": [
+        {
+          "keyword": "string",
+          "search_intent": "string",
+          "difficulty": "string",
+          "relevance_score": "number",
+          "recommendation": "string"
+        }
+      ],
+      "optimization_strategies": [
+        "string"
+      ]
+    },
+    "meta_tags": {
+      "summary": "string",
+      "current_meta": {
+        "title": "string",
+        "description": "string",
+        "title_length": "number",
+        "description_length": "number"
+      },
+      "suggested_titles": [
+        {
+          "title": "string",
+          "character_count": "number",
+          "keywords_used": [
+            "string"
+          ],
+          "rationale": "string"
+        }
+      ],
+      "suggested_descriptions": [
+        {
+          "description": "string",
+          "character_count": "number",
+          "keywords_used": [
+            "string"
+          ],
+          "rationale": "string"
+        }
+      ],
+      "optimization_notes": [
+        "string"
+      ]
+    },
+    "internal_linking": {
+      "summary": "string",
+      "link_recommendations": [
+        {
+          "source_page": "string",
+          "anchor_text": "string",
+          "target_page": "string",
+          "rationale": "string",
+          "priority": "string"
+        }
+      ],
+      "orphan_pages": [
+        {
+          "page": "string",
+          "issue": "string",
+          "recommendation": "string"
+        }
+      ],
+      "hub_page_strategies": [
+        {
+          "topic_cluster": "string",
+          "hub_page": "string",
+          "spoke_pages": [
+            "string"
+          ],
+          "recommendation": "string"
+        }
+      ],
+      "general_recommendations": [
+        "string"
+      ]
+    },
+    "priority_actions": [
+      {
+        "action": "string",
+        "category": "string",
+        "impact": "string",
+        "effort": "string"
+      }
+    ]
+  },
+  "example_response": {
+    "executive_summary": "sample string",
+    "overall_score": 0,
+    "url_audited": "sample string",
+    "content_audit": {
+      "overall_score": 0,
+      "summary": "sample string",
+      "heading_structure": {
+        "score": 0,
+        "severity": "sample string",
+        "findings": [
+          "sample string"
+        ],
+        "recommendations": [
+          "sample string"
+        ]
+      },
+      "content_length": {
+        "score": 0,
+        "severity": "sample string",
+        "word_count": 0,
+        "findings": [
+          "sample string"
+        ],
+        "recommendations": [
+          "sample string"
+        ]
+      },
+      "readability": {
+        "score": 0,
+        "severity": "sample string",
+        "reading_level": "sample string",
+        "findings": [
+          "sample string"
+        ],
+        "recommendations": [
+          "sample string"
+        ]
+      },
+      "keyword_density": {
+        "score": 0,
+        "severity": "sample string",
+        "findings": [
+          "sample string"
+        ],
+        "recommendations": [
+          "sample string"
+        ]
+      },
+      "image_alt_text": {
+        "score": 0,
+        "severity": "sample string",
+        "findings": [
+          "sample string"
+        ],
+        "recommendations": [
+          "sample string"
+        ]
+      },
+      "content_gaps": {
+        "score": 0,
+        "severity": "sample string",
+        "findings": [
+          "sample string"
+        ],
+        "recommendations": [
+          "sample string"
+        ]
+      }
+    },
+    "keyword_research": {
+      "summary": "sample string",
+      "primary_keywords": [
+        {
+          "keyword": "sample string",
+          "search_intent": "sample string",
+          "difficulty": "sample string",
+          "relevance_score": 0,
+          "recommendation": "sample string"
+        }
+      ],
+      "secondary_keywords": [
+        {
+          "keyword": "sample string",
+          "search_intent": "sample string",
+          "difficulty": "sample string",
+          "relevance_score": 0,
+          "recommendation": "sample string"
+        }
+      ],
+      "long_tail_keywords": [
+        {
+          "keyword": "sample string",
+          "search_intent": "sample string",
+          "difficulty": "sample string",
+          "relevance_score": 0,
+          "recommendation": "sample string"
+        }
+      ],
+      "optimization_strategies": [
+        "sample string"
+      ]
+    },
+    "meta_tags": {
+      "summary": "sample string",
+      "current_meta": {
+        "title": "sample string",
+        "description": "sample string",
+        "title_length": 0,
+        "description_length": 0
+      },
+      "suggested_titles": [
+        {
+          "title": "sample string",
+          "character_count": 0,
+          "keywords_used": [
+            "sample string"
+          ],
+          "rationale": "sample string"
+        }
+      ],
+      "suggested_descriptions": [
+        {
+          "description": "sample string",
+          "character_count": 0,
+          "keywords_used": [
+            "sample string"
+          ],
+          "rationale": "sample string"
+        }
+      ],
+      "optimization_notes": [
+        "sample string"
+      ]
+    },
+    "internal_linking": {
+      "summary": "sample string",
+      "link_recommendations": [
+        {
+          "source_page": "sample string",
+          "anchor_text": "sample string",
+          "target_page": "sample string",
+          "rationale": "sample string",
+          "priority": "sample string"
+        }
+      ],
+      "orphan_pages": [
+        {
+          "page": "sample string",
+          "issue": "sample string",
+          "recommendation": "sample string"
+        }
+      ],
+      "hub_page_strategies": [
+        {
+          "topic_cluster": "sample string",
+          "hub_page": "sample string",
+          "spoke_pages": [
+            "sample string"
+          ],
+          "recommendation": "sample string"
+        }
+      ],
+      "general_recommendations": [
+        "sample string"
+      ]
+    },
+    "priority_actions": [
+      {
+        "action": "sample string",
+        "category": "sample string",
+        "impact": "sample string",
+        "effort": "sample string"
+      }
+    ]
+  }
+}

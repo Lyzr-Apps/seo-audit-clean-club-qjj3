@@ -1,0 +1,70 @@
+{
+  "agent_name": "Keyword Research Agent",
+  "agent_id": "69a50aa02524759877284058",
+  "description": "Discovers keyword opportunities by researching search trends, competitor keywords, related terms, and long-tail variations relevant to the audited page content",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "summary": "string",
+    "primary_keywords": [
+      {
+        "keyword": "string",
+        "search_intent": "string",
+        "difficulty": "string",
+        "relevance_score": "number",
+        "recommendation": "string"
+      }
+    ],
+    "secondary_keywords": [
+      {
+        "keyword": "string",
+        "search_intent": "string",
+        "difficulty": "string",
+        "relevance_score": "number",
+        "recommendation": "string"
+      }
+    ],
+    "long_tail_keywords": [
+      {
+        "keyword": "string",
+        "search_intent": "string",
+        "difficulty": "string",
+        "relevance_score": "number",
+        "recommendation": "string"
+      }
+    ],
+    "optimization_strategies": ["string"]
+  },
+  "example_response": {
+    "summary": "sample string",
+    "primary_keywords": [
+      {
+        "keyword": "sample string",
+        "search_intent": "sample string",
+        "difficulty": "sample string",
+        "relevance_score": 0,
+        "recommendation": "sample string"
+      }
+    ],
+    "secondary_keywords": [
+      {
+        "keyword": "sample string",
+        "search_intent": "sample string",
+        "difficulty": "sample string",
+        "relevance_score": 0,
+        "recommendation": "sample string"
+      }
+    ],
+    "long_tail_keywords": [
+      {
+        "keyword": "sample string",
+        "search_intent": "sample string",
+        "difficulty": "sample string",
+        "relevance_score": 0,
+        "recommendation": "sample string"
+      }
+    ],
+    "optimization_strategies": ["sample string"]
+  }
+}

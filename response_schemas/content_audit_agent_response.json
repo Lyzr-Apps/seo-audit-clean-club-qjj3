@@ -1,0 +1,92 @@
+{
+  "agent_name": "Content Audit Agent",
+  "agent_id": "69a50aa0c527182215353557",
+  "description": "Analyzes page content for SEO quality\u2014evaluates heading structure, content length, readability, keyword density, image alt text, and identifies content gaps or thin content issues",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "overall_score": "number",
+    "summary": "string",
+    "heading_structure": {
+      "score": "number",
+      "severity": "string",
+      "findings": ["string"],
+      "recommendations": ["string"]
+    },
+    "content_length": {
+      "score": "number",
+      "severity": "string",
+      "word_count": "number",
+      "findings": ["string"],
+      "recommendations": ["string"]
+    },
+    "readability": {
+      "score": "number",
+      "severity": "string",
+      "reading_level": "string",
+      "findings": ["string"],
+      "recommendations": ["string"]
+    },
+    "keyword_density": {
+      "score": "number",
+      "severity": "string",
+      "findings": ["string"],
+      "recommendations": ["string"]
+    },
+    "image_alt_text": {
+      "score": "number",
+      "severity": "string",
+      "findings": ["string"],
+      "recommendations": ["string"]
+    },
+    "content_gaps": {
+      "score": "number",
+      "severity": "string",
+      "findings": ["string"],
+      "recommendations": ["string"]
+    }
+  },
+  "example_response": {
+    "overall_score": 0,
+    "summary": "sample string",
+    "heading_structure": {
+      "score": 0,
+      "severity": "sample string",
+      "findings": ["sample string"],
+      "recommendations": ["sample string"]
+    },
+    "content_length": {
+      "score": 0,
+      "severity": "sample string",
+      "word_count": 0,
+      "findings": ["sample string"],
+      "recommendations": ["sample string"]
+    },
+    "readability": {
+      "score": 0,
+      "severity": "sample string",
+      "reading_level": "sample string",
+      "findings": ["sample string"],
+      "recommendations": ["sample string"]
+    },
+    "keyword_density": {
+      "score": 0,
+      "severity": "sample string",
+      "findings": ["sample string"],
+      "recommendations": ["sample string"]
+    },
+    "image_alt_text": {
+      "score": 0,
+      "severity": "sample string",
+      "findings": ["sample string"],
+      "recommendations": ["sample string"]
+    },
+    "content_gaps": {
+      "score": 0,
+      "severity": "sample string",
+      "findings": ["sample string"],
+      "recommendations": ["sample string"]
+    }
+  }
+}

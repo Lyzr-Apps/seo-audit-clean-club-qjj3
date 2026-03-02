@@ -1,0 +1,60 @@
+{
+  "agent_name": "Meta Tag Generator Agent",
+  "agent_id": "69a50aa1252475987728405a",
+  "description": "Generates optimized meta titles and meta descriptions incorporating target keywords while maintaining compelling, click-worthy copy",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "summary": "string",
+    "current_meta": {
+      "title": "string",
+      "description": "string",
+      "title_length": "number",
+      "description_length": "number"
+    },
+    "suggested_titles": [
+      {
+        "title": "string",
+        "character_count": "number",
+        "keywords_used": ["string"],
+        "rationale": "string"
+      }
+    ],
+    "suggested_descriptions": [
+      {
+        "description": "string",
+        "character_count": "number",
+        "keywords_used": ["string"],
+        "rationale": "string"
+      }
+    ],
+    "optimization_notes": ["string"]
+  },
+  "example_response": {
+    "summary": "sample string",
+    "current_meta": {
+      "title": "sample string",
+      "description": "sample string",
+      "title_length": 0,
+      "description_length": 0
+    },
+    "suggested_titles": [
+      {
+        "title": "sample string",
+        "character_count": 0,
+        "keywords_used": ["sample string"],
+        "rationale": "sample string"
+      }
+    ],
+    "suggested_descriptions": [
+      {
+        "description": "sample string",
+        "character_count": 0,
+        "keywords_used": ["sample string"],
+        "rationale": "sample string"
+      }
+    ],
+    "optimization_notes": ["sample string"]
+  }
+}

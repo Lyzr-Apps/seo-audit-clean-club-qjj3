@@ -1,0 +1,54 @@
+{
+  "app_name": "SEO Content Optimizer",
+  "agents": {
+    "content_audit_agent": {
+      "agent_id": "69a50aa0c527182215353557",
+      "name": "Content Audit Agent",
+      "type": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    "keyword_research_agent": {
+      "agent_id": "69a50aa02524759877284058",
+      "name": "Keyword Research Agent",
+      "type": "sub-agent",
+      "provider": "perplexity",
+      "model": "sonar-pro"
+    },
+    "meta_tag_generator": {
+      "agent_id": "69a50aa1252475987728405a",
+      "name": "Meta Tag Generator Agent",
+      "type": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    "internal_linking_agent": {
+      "agent_id": "69a50aa18074d73c14ba554f",
+      "name": "Internal Linking Agent",
+      "type": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    "seo_audit_manager": {
+      "agent_id": "69a50ac5b804714191c768f9",
+      "name": "SEO Audit Manager",
+      "type": "manager",
+      "provider": "openai",
+      "model": "gpt-4.1",
+      "managed_agents": [
+        "69a50aa0c527182215353557",
+        "69a50aa02524759877284058",
+        "69a50aa1252475987728405a",
+        "69a50aa18074d73c14ba554f"
+      ]
+    }
+  },
+  "primary_agent_id": "69a50ac5b804714191c768f9",
+  "response_schemas": {
+    "content_audit_agent": "response_schemas/content_audit_agent_response.json",
+    "keyword_research_agent": "response_schemas/keyword_research_agent_response.json",
+    "meta_tag_generator": "response_schemas/meta_tag_generator_agent_response.json",
+    "internal_linking_agent": "response_schemas/internal_linking_agent_response.json",
+    "seo_audit_manager": "response_schemas/seo_audit_manager_response.json"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "nodes": [
+    {
+      "id": "input_node",
+      "type": "Input",
+      "label": "Website URL Input",
+      "nodeCategory": "input"
+    },
+    {
+      "id": "seo_audit_manager",
+      "type": "Agent",
+      "label": "SEO Audit Manager",
+      "nodeCategory": "agent",
+      "agent_id": "69a50ac5b804714191c768f9"
+    },
+    {
+      "id": "content_audit_agent",
+      "type": "Agent",
+      "label": "Content Audit Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69a50aa0c527182215353557"
+    },
+    {
+      "id": "keyword_research_agent",
+      "type": "Agent",
+      "label": "Keyword Research Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69a50aa02524759877284058"
+    },
+    {
+      "id": "meta_tag_generator",
+      "type": "Agent",
+      "label": "Meta Tag Generator Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69a50aa1252475987728405a"
+    },
+    {
+      "id": "internal_linking_agent",
+      "type": "Agent",
+      "label": "Internal Linking Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69a50aa18074d73c14ba554f"
+    },
+    {
+      "id": "output_node",
+      "type": "Output",
+      "label": "SEO Audit Report",
+      "nodeCategory": "end"
+    }
+  ],
+  "edges": [
+    { "source": "input_node", "target": "seo_audit_manager" },
+    { "source": "seo_audit_manager", "target": "content_audit_agent" },
+    { "source": "seo_audit_manager", "target": "keyword_research_agent" },
+    { "source": "seo_audit_manager", "target": "meta_tag_generator" },
+    { "source": "seo_audit_manager", "target": "internal_linking_agent" },
+    { "source": "content_audit_agent", "target": "output_node" },
+    { "source": "keyword_research_agent", "target": "output_node" },
+    { "source": "meta_tag_generator", "target": "output_node" },
+    { "source": "internal_linking_agent", "target": "output_node" }
+  ]
+}
