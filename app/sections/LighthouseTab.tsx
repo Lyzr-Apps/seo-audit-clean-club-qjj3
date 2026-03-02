@@ -12,15 +12,16 @@ function ScoreGauge({ score, label }: { score: number; label: string }) {
   const circumference = 2 * Math.PI * radius
   const progress = ((score ?? 0) / 100) * circumference
   const color = (score ?? 0) >= 90 ? '#059669' : (score ?? 0) >= 50 ? '#d97706' : '#dc2626'
+  const bgColor = (score ?? 0) >= 90 ? '#d1fae5' : (score ?? 0) >= 50 ? '#fef3c7' : '#fee2e2'
 
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-center gap-1.5">
       <svg width="88" height="88" viewBox="0 0 88 88">
-        <circle cx="44" cy="44" r={radius} fill="none" stroke="currentColor" strokeWidth="6" className="text-gray-200" />
+        <circle cx="44" cy="44" r={radius} fill="none" stroke={bgColor} strokeWidth="6" />
         <circle cx="44" cy="44" r={radius} fill="none" stroke={color} strokeWidth="6" strokeDasharray={circumference} strokeDashoffset={circumference - progress} strokeLinecap="round" transform="rotate(-90 44 44)" className="transition-all duration-700" />
-        <text x="44" y="44" textAnchor="middle" dominantBaseline="central" fill={color} fontSize="20" fontWeight="600">{score ?? 0}</text>
+        <text x="44" y="44" textAnchor="middle" dominantBaseline="central" fill={color} fontSize="20" fontWeight="700">{score ?? 0}</text>
       </svg>
-      <span className="text-xs font-medium text-muted-foreground">{label}</span>
+      <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">{label}</span>
     </div>
   )
 }
@@ -34,29 +35,29 @@ function StatusDot({ status }: { status?: string }) {
 
 function SeverityBadge({ severity }: { severity?: string }) {
   const s = (severity ?? '').toLowerCase()
-  if (s === 'critical' || s === 'fail') return <Badge className="text-[10px] bg-red-100 text-red-700 border-red-200 hover:bg-red-100">Critical</Badge>
-  if (s === 'warning') return <Badge className="text-[10px] bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">Warning</Badge>
-  return <Badge className="text-[10px] bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100">Pass</Badge>
+  if (s === 'critical' || s === 'fail') return <Badge className="text-[10px] font-semibold bg-red-100 text-red-700 border-red-200 hover:bg-red-100">Critical</Badge>
+  if (s === 'warning') return <Badge className="text-[10px] font-semibold bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">Warning</Badge>
+  return <Badge className="text-[10px] font-semibold bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100">Pass</Badge>
 }
 
 function PriorityBadge({ priority }: { priority?: string }) {
   const p = (priority ?? '').toLowerCase()
-  if (p === 'high') return <Badge className="text-[10px] bg-red-100 text-red-700 border-red-200 hover:bg-red-100">High</Badge>
-  if (p === 'medium') return <Badge className="text-[10px] bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">Medium</Badge>
-  return <Badge className="text-[10px] bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100">Low</Badge>
+  if (p === 'high') return <Badge className="text-[10px] font-semibold bg-red-100 text-red-700 border-red-200 hover:bg-red-100">High</Badge>
+  if (p === 'medium') return <Badge className="text-[10px] font-semibold bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">Medium</Badge>
+  return <Badge className="text-[10px] font-semibold bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100">Low</Badge>
 }
 
 function CollapsibleSection({ title, icon, count, children }: { title: string; icon: React.ReactNode; count?: number; children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="border border-border rounded-lg overflow-hidden">
-      <button onClick={() => setOpen(!open)} className="w-full flex items-center gap-2 px-4 py-3 text-left hover:bg-muted/30 transition-colors">
+    <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm overflow-hidden">
+      <button onClick={() => setOpen(!open)} className="w-full flex items-center gap-2.5 px-5 py-3.5 text-left hover:bg-muted/20 transition-colors">
         {icon}
-        <span className="text-sm font-medium text-foreground flex-1">{title}</span>
-        {count != null && <Badge variant="outline" className="text-[10px]">{count}</Badge>}
+        <span className="text-sm font-semibold text-foreground flex-1">{title}</span>
+        {count != null && <Badge variant="outline" className="text-[10px] font-medium">{count}</Badge>}
         {open ? <FiChevronUp className="w-4 h-4 text-muted-foreground" /> : <FiChevronDown className="w-4 h-4 text-muted-foreground" />}
       </button>
-      {open && <div className="px-4 pb-4 border-t border-border">{children}</div>}
+      {open && <div className="px-5 pb-5 border-t border-border/50">{children}</div>}
     </div>
   )
 }
@@ -68,8 +69,10 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
 
   if (!data) {
     return (
-      <div className="text-center py-10">
-        <FiZap className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
+      <div className="text-center py-12">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center mx-auto mb-3">
+          <FiZap className="w-6 h-6 text-primary/60" />
+        </div>
         <p className="text-sm text-muted-foreground">No Lighthouse data available yet. Run an audit to see performance analysis.</p>
       </div>
     )
@@ -99,11 +102,15 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
   const res = data?.resource_summary
 
   return (
-    <div className="space-y-6">
-      {data?.summary && <p className="text-sm text-muted-foreground leading-relaxed">{data.summary}</p>}
+    <div className="space-y-7">
+      {data?.summary && (
+        <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-5">
+          <p className="text-sm text-muted-foreground leading-relaxed">{data.summary}</p>
+        </div>
+      )}
 
       {/* Score Gauges */}
-      <div className="flex flex-wrap items-center justify-center gap-6 py-4 px-2 bg-muted/20 rounded-xl">
+      <div className="flex flex-wrap items-center justify-center gap-8 py-6 px-4 bg-muted/20 rounded-2xl">
         {perf?.score != null && <ScoreGauge score={perf.score} label="Performance" />}
         {data?.accessibility?.score != null && <ScoreGauge score={data.accessibility.score} label="Accessibility" />}
         {data?.best_practices?.score != null && <ScoreGauge score={data.best_practices.score} label="Best Practices" />}
@@ -114,7 +121,7 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* Core Web Vitals */}
       {metrics && (
         <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3">Core Web Vitals</h3>
+          <h3 className="text-sm font-bold text-foreground mb-3">Core Web Vitals</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
             {metricEntries.map(({ key, label, full }) => {
               const m = metrics?.[key]
@@ -122,14 +129,14 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
               const scoreVal = m?.score ?? 0
               const barColor = (m?.status ?? '').toLowerCase() === 'good' ? 'bg-emerald-500' : (m?.status ?? '').toLowerCase() === 'needs-improvement' ? 'bg-amber-500' : 'bg-red-500'
               return (
-                <div key={key} className="bg-white/60 border border-border rounded-lg p-3 space-y-2">
+                <div key={key} className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 space-y-2.5 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-muted-foreground uppercase">{label}</span>
+                    <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{label}</span>
                     <StatusDot status={m?.status} />
                   </div>
-                  <p className="text-lg font-bold text-foreground">{m?.value ?? 'N/A'}</p>
+                  <p className="text-xl font-bold text-foreground">{m?.value ?? 'N/A'}</p>
                   <p className="text-[10px] text-muted-foreground">{full}</p>
-                  <div className="w-full bg-gray-200 rounded-full h-1.5">
+                  <div className="w-full bg-muted/50 rounded-full h-1.5">
                     <div className={`h-1.5 rounded-full ${barColor} transition-all duration-500`} style={{ width: `${Math.min(scoreVal, 100)}%` }} />
                   </div>
                 </div>
@@ -142,17 +149,17 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* Opportunities */}
       {opportunities.length > 0 && (
         <CollapsibleSection title="Opportunities" icon={<FiZap className="w-4 h-4 text-amber-500" />} count={opportunities.length}>
-          <div className="space-y-2 mt-3">
+          <div className="space-y-2.5 mt-4">
             {opportunities.map((opp: { title?: string; description?: string; savings?: string; priority?: string }, i: number) => (
-              <div key={i} className="bg-white/50 border border-border rounded-lg p-3">
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <span className="text-sm font-medium text-foreground">{opp?.title ?? 'Opportunity'}</span>
+              <div key={i} className="bg-muted/20 border border-border/40 rounded-xl p-4">
+                <div className="flex items-start justify-between gap-2 mb-1.5">
+                  <span className="text-sm font-semibold text-foreground">{opp?.title ?? 'Opportunity'}</span>
                   <div className="flex items-center gap-1.5 flex-shrink-0">
-                    {opp?.savings && <Badge variant="outline" className="text-[10px]">{opp.savings}</Badge>}
+                    {opp?.savings && <Badge variant="outline" className="text-[10px] font-medium">{opp.savings}</Badge>}
                     <PriorityBadge priority={opp?.priority} />
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">{opp?.description ?? ''}</p>
+                <p className="text-xs text-muted-foreground leading-relaxed">{opp?.description ?? ''}</p>
               </div>
             ))}
           </div>
@@ -162,14 +169,14 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* Diagnostics */}
       {diagnostics.length > 0 && (
         <CollapsibleSection title="Diagnostics" icon={<FiAlertTriangle className="w-4 h-4 text-amber-500" />} count={diagnostics.length}>
-          <div className="space-y-2 mt-3">
+          <div className="space-y-2.5 mt-4">
             {diagnostics.map((diag: { title?: string; description?: string; value?: string }, i: number) => (
-              <div key={i} className="flex items-start justify-between gap-3 bg-white/50 border border-border rounded-lg p-3">
+              <div key={i} className="flex items-start justify-between gap-3 bg-muted/20 border border-border/40 rounded-xl p-4">
                 <div className="flex-1 min-w-0">
-                  <span className="text-sm font-medium text-foreground">{diag?.title ?? 'Diagnostic'}</span>
-                  <p className="text-xs text-muted-foreground mt-0.5">{diag?.description ?? ''}</p>
+                  <span className="text-sm font-semibold text-foreground">{diag?.title ?? 'Diagnostic'}</span>
+                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{diag?.description ?? ''}</p>
                 </div>
-                {diag?.value && <Badge variant="outline" className="text-[10px] flex-shrink-0 whitespace-nowrap">{diag.value}</Badge>}
+                {diag?.value && <Badge variant="outline" className="text-[10px] font-medium flex-shrink-0 whitespace-nowrap">{diag.value}</Badge>}
               </div>
             ))}
           </div>
@@ -179,19 +186,19 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* Accessibility Issues */}
       {(accessibilityIssues.length > 0 || accessibilityPassed.length > 0) && (
         <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3">Accessibility</h3>
+          <h3 className="text-sm font-bold text-foreground mb-3">Accessibility</h3>
           {accessibilityIssues.length > 0 && (
-            <div className="space-y-2 mb-3">
+            <div className="space-y-2.5 mb-3">
               {accessibilityIssues.map((issue: { title?: string; description?: string; severity?: string; elements_affected?: number }, i: number) => (
-                <div key={i} className="flex items-start gap-3 bg-white/50 border border-border rounded-lg p-3">
+                <div key={i} className="flex items-start gap-3 bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4">
                   <FiAlertCircle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${(issue?.severity ?? '').toLowerCase() === 'critical' ? 'text-red-500' : 'text-amber-500'}`} />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm font-medium text-foreground">{issue?.title ?? 'Issue'}</span>
+                      <span className="text-sm font-semibold text-foreground">{issue?.title ?? 'Issue'}</span>
                       <SeverityBadge severity={issue?.severity} />
-                      {(issue?.elements_affected ?? 0) > 0 && <Badge variant="outline" className="text-[10px]">{issue.elements_affected} elements</Badge>}
+                      {(issue?.elements_affected ?? 0) > 0 && <Badge variant="outline" className="text-[10px] font-medium">{issue.elements_affected} elements</Badge>}
                     </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{issue?.description ?? ''}</p>
+                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{issue?.description ?? ''}</p>
                   </div>
                 </div>
               ))}
@@ -199,15 +206,15 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
           )}
           {accessibilityPassed.length > 0 && (
             <div>
-              <button onClick={() => setShowPassedA11y(!showPassedA11y)} className="flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-700 font-medium">
+              <button onClick={() => setShowPassedA11y(!showPassedA11y)} className="flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-700 font-semibold">
                 <FiCheckCircle className="w-3.5 h-3.5" />
                 {showPassedA11y ? 'Hide' : 'Show'} {accessibilityPassed.length} passed audits
                 {showPassedA11y ? <FiChevronUp className="w-3 h-3" /> : <FiChevronDown className="w-3 h-3" />}
               </button>
               {showPassedA11y && (
-                <div className="mt-2 space-y-1">
+                <div className="mt-2.5 space-y-1.5">
                   {accessibilityPassed.map((item: string, i: number) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground"><FiCheckCircle className="w-3 h-3 text-emerald-500 flex-shrink-0" />{item}</div>
+                    <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground"><FiCheckCircle className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />{item}</div>
                   ))}
                 </div>
               )}
@@ -219,15 +226,15 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* Best Practices */}
       {(bpIssues.length > 0 || bpPassed.length > 0) && (
         <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3">Best Practices</h3>
+          <h3 className="text-sm font-bold text-foreground mb-3">Best Practices</h3>
           {bpIssues.length > 0 && (
-            <div className="space-y-2 mb-3">
+            <div className="space-y-2.5 mb-3">
               {bpIssues.map((issue: { title?: string; description?: string; severity?: string }, i: number) => (
-                <div key={i} className="flex items-start gap-3 bg-white/50 border border-border rounded-lg p-3">
+                <div key={i} className="flex items-start gap-3 bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4">
                   <FiAlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0 text-amber-500" />
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2"><span className="text-sm font-medium text-foreground">{issue?.title ?? 'Issue'}</span><SeverityBadge severity={issue?.severity} /></div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{issue?.description ?? ''}</p>
+                    <div className="flex items-center gap-2"><span className="text-sm font-semibold text-foreground">{issue?.title ?? 'Issue'}</span><SeverityBadge severity={issue?.severity} /></div>
+                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{issue?.description ?? ''}</p>
                   </div>
                 </div>
               ))}
@@ -235,15 +242,15 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
           )}
           {bpPassed.length > 0 && (
             <div>
-              <button onClick={() => setShowPassedBP(!showPassedBP)} className="flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-700 font-medium">
+              <button onClick={() => setShowPassedBP(!showPassedBP)} className="flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-700 font-semibold">
                 <FiCheckCircle className="w-3.5 h-3.5" />
                 {showPassedBP ? 'Hide' : 'Show'} {bpPassed.length} passed audits
                 {showPassedBP ? <FiChevronUp className="w-3 h-3" /> : <FiChevronDown className="w-3 h-3" />}
               </button>
               {showPassedBP && (
-                <div className="mt-2 space-y-1">
+                <div className="mt-2.5 space-y-1.5">
                   {bpPassed.map((item: string, i: number) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground"><FiCheckCircle className="w-3 h-3 text-emerald-500 flex-shrink-0" />{item}</div>
+                    <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground"><FiCheckCircle className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />{item}</div>
                   ))}
                 </div>
               )}
@@ -255,15 +262,15 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* SEO Technical */}
       {(seoIssues.length > 0 || seoPassed.length > 0) && (
         <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3">SEO Technical</h3>
+          <h3 className="text-sm font-bold text-foreground mb-3">SEO Technical</h3>
           {seoIssues.length > 0 && (
-            <div className="space-y-2 mb-3">
+            <div className="space-y-2.5 mb-3">
               {seoIssues.map((issue: { title?: string; description?: string; severity?: string }, i: number) => (
-                <div key={i} className="flex items-start gap-3 bg-white/50 border border-border rounded-lg p-3">
+                <div key={i} className="flex items-start gap-3 bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4">
                   <FiAlertCircle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${(issue?.severity ?? '').toLowerCase() === 'critical' ? 'text-red-500' : 'text-amber-500'}`} />
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2"><span className="text-sm font-medium text-foreground">{issue?.title ?? 'Issue'}</span><SeverityBadge severity={issue?.severity} /></div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{issue?.description ?? ''}</p>
+                    <div className="flex items-center gap-2"><span className="text-sm font-semibold text-foreground">{issue?.title ?? 'Issue'}</span><SeverityBadge severity={issue?.severity} /></div>
+                    <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{issue?.description ?? ''}</p>
                   </div>
                 </div>
               ))}
@@ -271,15 +278,15 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
           )}
           {seoPassed.length > 0 && (
             <div>
-              <button onClick={() => setShowPassedSEO(!showPassedSEO)} className="flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-700 font-medium">
+              <button onClick={() => setShowPassedSEO(!showPassedSEO)} className="flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-700 font-semibold">
                 <FiCheckCircle className="w-3.5 h-3.5" />
                 {showPassedSEO ? 'Hide' : 'Show'} {seoPassed.length} passed audits
                 {showPassedSEO ? <FiChevronUp className="w-3 h-3" /> : <FiChevronDown className="w-3 h-3" />}
               </button>
               {showPassedSEO && (
-                <div className="mt-2 space-y-1">
+                <div className="mt-2.5 space-y-1.5">
                   {seoPassed.map((item: string, i: number) => (
-                    <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground"><FiCheckCircle className="w-3 h-3 text-emerald-500 flex-shrink-0" />{item}</div>
+                    <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground"><FiCheckCircle className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />{item}</div>
                   ))}
                 </div>
               )}
@@ -291,18 +298,18 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* PWA Checks */}
       {pwaChecks.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3">Progressive Web App</h3>
-          <div className="space-y-1.5">
+          <h3 className="text-sm font-bold text-foreground mb-3">Progressive Web App</h3>
+          <div className="space-y-2">
             {pwaChecks.map((check: { title?: string; status?: string; description?: string }, i: number) => {
               const passed = (check?.status ?? '').toLowerCase() === 'pass'
               return (
-                <div key={i} className="flex items-start gap-2.5 bg-white/50 border border-border rounded-lg p-3">
+                <div key={i} className="flex items-start gap-3 bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4">
                   {passed ? <FiCheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" /> : <FiAlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />}
                   <div className="flex-1 min-w-0">
-                    <span className="text-sm font-medium text-foreground">{check?.title ?? 'Check'}</span>
-                    <p className="text-xs text-muted-foreground mt-0.5">{check?.description ?? ''}</p>
+                    <span className="text-sm font-semibold text-foreground">{check?.title ?? 'Check'}</span>
+                    <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{check?.description ?? ''}</p>
                   </div>
-                  <Badge className={`text-[10px] flex-shrink-0 ${passed ? 'bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100' : 'bg-red-100 text-red-700 border-red-200 hover:bg-red-100'}`}>{passed ? 'Pass' : 'Fail'}</Badge>
+                  <Badge className={`text-[10px] font-semibold flex-shrink-0 ${passed ? 'bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100' : 'bg-red-100 text-red-700 border-red-200 hover:bg-red-100'}`}>{passed ? 'Pass' : 'Fail'}</Badge>
                 </div>
               )
             })}
@@ -313,44 +320,44 @@ export default function LighthouseTab({ data }: LighthouseTabProps) {
       {/* Resource Summary */}
       {res && (
         <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2"><FiPackage className="w-4 h-4 text-muted-foreground" /> Resource Summary</h3>
+          <h3 className="text-sm font-bold text-foreground mb-3 flex items-center gap-2"><FiPackage className="w-4 h-4 text-muted-foreground" /> Resource Summary</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            <div className="bg-white/60 border border-border rounded-lg p-3 text-center">
-              <p className="text-lg font-bold text-foreground">{res?.total_requests ?? '-'}</p>
-              <p className="text-[10px] text-muted-foreground">Total Requests</p>
+            <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 text-center">
+              <p className="text-xl font-bold text-foreground">{res?.total_requests ?? '-'}</p>
+              <p className="text-[10px] text-muted-foreground font-medium mt-1">Total Requests</p>
             </div>
-            <div className="bg-white/60 border border-border rounded-lg p-3 text-center">
-              <p className="text-lg font-bold text-foreground">{res?.total_size ?? '-'}</p>
-              <p className="text-[10px] text-muted-foreground">Total Size</p>
+            <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 text-center">
+              <p className="text-xl font-bold text-foreground">{res?.total_size ?? '-'}</p>
+              <p className="text-[10px] text-muted-foreground font-medium mt-1">Total Size</p>
             </div>
             {res?.scripts && (
-              <div className="bg-white/60 border border-border rounded-lg p-3 text-center">
-                <p className="text-lg font-bold text-foreground">{res.scripts?.count ?? 0}</p>
-                <p className="text-[10px] text-muted-foreground">Scripts ({res.scripts?.size ?? ''})</p>
+              <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 text-center">
+                <p className="text-xl font-bold text-foreground">{res.scripts?.count ?? 0}</p>
+                <p className="text-[10px] text-muted-foreground font-medium mt-1">Scripts ({res.scripts?.size ?? ''})</p>
               </div>
             )}
             {res?.stylesheets && (
-              <div className="bg-white/60 border border-border rounded-lg p-3 text-center">
-                <p className="text-lg font-bold text-foreground">{res.stylesheets?.count ?? 0}</p>
-                <p className="text-[10px] text-muted-foreground">Stylesheets ({res.stylesheets?.size ?? ''})</p>
+              <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 text-center">
+                <p className="text-xl font-bold text-foreground">{res.stylesheets?.count ?? 0}</p>
+                <p className="text-[10px] text-muted-foreground font-medium mt-1">Stylesheets ({res.stylesheets?.size ?? ''})</p>
               </div>
             )}
             {res?.images && (
-              <div className="bg-white/60 border border-border rounded-lg p-3 text-center">
-                <p className="text-lg font-bold text-foreground">{res.images?.count ?? 0}</p>
-                <p className="text-[10px] text-muted-foreground">Images ({res.images?.size ?? ''})</p>
+              <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 text-center">
+                <p className="text-xl font-bold text-foreground">{res.images?.count ?? 0}</p>
+                <p className="text-[10px] text-muted-foreground font-medium mt-1">Images ({res.images?.size ?? ''})</p>
               </div>
             )}
             {res?.fonts && (
-              <div className="bg-white/60 border border-border rounded-lg p-3 text-center">
-                <p className="text-lg font-bold text-foreground">{res.fonts?.count ?? 0}</p>
-                <p className="text-[10px] text-muted-foreground">Fonts ({res.fonts?.size ?? ''})</p>
+              <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 text-center">
+                <p className="text-xl font-bold text-foreground">{res.fonts?.count ?? 0}</p>
+                <p className="text-[10px] text-muted-foreground font-medium mt-1">Fonts ({res.fonts?.size ?? ''})</p>
               </div>
             )}
             {res?.third_party && (
-              <div className="bg-white/60 border border-border rounded-lg p-3 text-center">
-                <p className="text-lg font-bold text-foreground">{res.third_party?.count ?? 0}</p>
-                <p className="text-[10px] text-muted-foreground">3rd Party ({res.third_party?.size ?? ''})</p>
+              <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 text-center">
+                <p className="text-xl font-bold text-foreground">{res.third_party?.count ?? 0}</p>
+                <p className="text-[10px] text-muted-foreground font-medium mt-1">3rd Party ({res.third_party?.size ?? ''})</p>
               </div>
             )}
           </div>

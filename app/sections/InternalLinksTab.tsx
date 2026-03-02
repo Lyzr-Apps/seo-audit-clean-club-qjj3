@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
-import { FiExternalLink, FiAlertCircle, FiCheckCircle, FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { FiExternalLink, FiAlertCircle, FiCheckCircle, FiChevronDown, FiChevronUp, FiLink } from 'react-icons/fi'
 
 interface LinkRec {
   source_page?: string
@@ -39,9 +39,9 @@ interface InternalLinksTabProps {
 
 function PriorityBadge({ priority }: { priority?: string }) {
   const p = priority?.toLowerCase() ?? ''
-  if (p === 'high') return <Badge className="text-xs bg-red-100 text-red-700 border-red-200 hover:bg-red-100">High</Badge>
-  if (p === 'medium') return <Badge className="text-xs bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">Medium</Badge>
-  return <Badge className="text-xs bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100">{priority ?? 'Low'}</Badge>
+  if (p === 'high') return <Badge className="text-[10px] font-semibold bg-red-100 text-red-700 border-red-200 hover:bg-red-100">High</Badge>
+  if (p === 'medium') return <Badge className="text-[10px] font-semibold bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">Medium</Badge>
+  return <Badge className="text-[10px] font-semibold bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-100">{priority ?? 'Low'}</Badge>
 }
 
 function HubCard({ hub }: { hub: HubStrategy }) {
@@ -49,32 +49,33 @@ function HubCard({ hub }: { hub: HubStrategy }) {
   const spokes = Array.isArray(hub.spoke_pages) ? hub.spoke_pages : []
 
   return (
-    <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-sm overflow-hidden">
+    <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 hover:bg-secondary/30 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-muted/20 transition-colors"
       >
-        <div className="flex items-center gap-2">
-          <span className="font-medium text-sm text-foreground">{hub.topic_cluster ?? 'Topic Cluster'}</span>
+        <div className="flex items-center gap-2.5">
+          <FiLink className="w-4 h-4 text-primary" />
+          <span className="font-semibold text-sm text-foreground">{hub.topic_cluster ?? 'Topic Cluster'}</span>
         </div>
         {open ? <FiChevronUp className="w-4 h-4 text-muted-foreground" /> : <FiChevronDown className="w-4 h-4 text-muted-foreground" />}
       </button>
       {open && (
-        <div className="px-4 pb-4 border-t border-border space-y-3 pt-3">
+        <div className="px-5 pb-5 border-t border-border/50 space-y-4 pt-4">
           {hub.hub_page && (
             <div>
-              <span className="text-xs font-semibold text-muted-foreground uppercase">Hub Page</span>
-              <p className="text-sm text-foreground mt-0.5">{hub.hub_page}</p>
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Hub Page</span>
+              <p className="text-sm text-foreground mt-1 font-medium font-mono bg-muted/30 px-3 py-1.5 rounded-lg">{hub.hub_page}</p>
             </div>
           )}
           {spokes.length > 0 && (
             <div>
-              <span className="text-xs font-semibold text-muted-foreground uppercase">Spoke Pages</span>
-              <ul className="mt-1 space-y-1">
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Spoke Pages</span>
+              <ul className="mt-1.5 space-y-1.5">
                 {spokes.map((sp, i) => (
                   <li key={i} className="text-sm text-foreground flex items-start gap-2">
-                    <FiExternalLink className="w-3 h-3 mt-1 text-muted-foreground flex-shrink-0" />
-                    {sp}
+                    <FiExternalLink className="w-3.5 h-3.5 mt-0.5 text-primary/60 flex-shrink-0" />
+                    <span className="font-mono text-xs">{sp}</span>
                   </li>
                 ))}
               </ul>
@@ -82,8 +83,8 @@ function HubCard({ hub }: { hub: HubStrategy }) {
           )}
           {hub.recommendation && (
             <div>
-              <span className="text-xs font-semibold text-muted-foreground uppercase">Recommendation</span>
-              <p className="text-sm text-foreground mt-0.5">{hub.recommendation}</p>
+              <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Recommendation</span>
+              <p className="text-sm text-foreground mt-1 leading-relaxed">{hub.recommendation}</p>
             </div>
           )}
         </div>
@@ -106,35 +107,38 @@ export default function InternalLinksTab({ data }: InternalLinksTabProps) {
   })
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-7">
       {data.summary && (
-        <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-sm p-4">
+        <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-5">
           <p className="text-sm text-foreground leading-relaxed">{data.summary}</p>
         </div>
       )}
 
       {sortedLinks.length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-foreground">Link Recommendations</h3>
-          <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm font-bold text-foreground">Link Recommendations</h3>
+            <Badge variant="outline" className="text-[10px] font-medium">{sortedLinks.length}</Badge>
+          </div>
+          <div className="space-y-2.5">
             {sortedLinks.map((lk, i) => (
-              <div key={i} className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-sm p-4">
-                <div className="flex items-center gap-2 mb-2">
+              <div key={i} className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-2.5 mb-2.5">
                   <PriorityBadge priority={lk.priority} />
-                  <span className="text-xs text-muted-foreground">Anchor:</span>
-                  <Badge variant="outline" className="text-xs font-mono">{lk.anchor_text ?? 'N/A'}</Badge>
+                  <span className="text-[10px] text-muted-foreground font-medium">Anchor:</span>
+                  <Badge variant="outline" className="text-[10px] font-mono font-medium">{lk.anchor_text ?? 'N/A'}</Badge>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs mb-2">
-                  <div>
-                    <span className="text-muted-foreground">Source: </span>
-                    <span className="text-foreground">{lk.source_page ?? 'N/A'}</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs mb-2.5">
+                  <div className="bg-muted/30 rounded-lg px-3 py-2">
+                    <span className="text-muted-foreground font-medium">Source: </span>
+                    <span className="text-foreground font-mono">{lk.source_page ?? 'N/A'}</span>
                   </div>
-                  <div>
-                    <span className="text-muted-foreground">Target: </span>
-                    <span className="text-foreground">{lk.target_page ?? 'N/A'}</span>
+                  <div className="bg-muted/30 rounded-lg px-3 py-2">
+                    <span className="text-muted-foreground font-medium">Target: </span>
+                    <span className="text-foreground font-mono">{lk.target_page ?? 'N/A'}</span>
                   </div>
                 </div>
-                {lk.rationale && <p className="text-xs text-muted-foreground">{lk.rationale}</p>}
+                {lk.rationale && <p className="text-xs text-muted-foreground leading-relaxed">{lk.rationale}</p>}
               </div>
             ))}
           </div>
@@ -143,16 +147,24 @@ export default function InternalLinksTab({ data }: InternalLinksTabProps) {
 
       {orphans.length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-foreground">Orphan Pages</h3>
-          <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <h3 className="text-sm font-bold text-foreground">Orphan Pages</h3>
+            <Badge className="text-[10px] font-semibold bg-amber-100 text-amber-700 border-amber-200 hover:bg-amber-100">{orphans.length} found</Badge>
+          </div>
+          <div className="space-y-2.5">
             {orphans.map((op, i) => (
-              <div key={i} className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-sm p-4">
-                <div className="flex items-center gap-2 mb-1">
-                  <FiAlertCircle className="w-3.5 h-3.5 text-amber-500" />
-                  <span className="text-sm font-medium text-foreground">{op.page ?? 'Unknown page'}</span>
+              <div key={i} className="bg-white/80 backdrop-blur-[20px] border border-amber-200/40 rounded-2xl shadow-sm p-4">
+                <div className="flex items-center gap-2.5 mb-1.5">
+                  <FiAlertCircle className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                  <span className="text-sm font-semibold text-foreground font-mono">{op.page ?? 'Unknown page'}</span>
                 </div>
-                {op.issue && <p className="text-xs text-muted-foreground mb-1">{op.issue}</p>}
-                {op.recommendation && <p className="text-xs text-emerald-700">{op.recommendation}</p>}
+                {op.issue && <p className="text-xs text-muted-foreground mb-1.5 ml-6">{op.issue}</p>}
+                {op.recommendation && (
+                  <div className="flex items-start gap-2 ml-6">
+                    <FiCheckCircle className="w-3.5 h-3.5 mt-0.5 text-emerald-500 flex-shrink-0" />
+                    <p className="text-xs text-emerald-700 leading-relaxed">{op.recommendation}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -161,8 +173,8 @@ export default function InternalLinksTab({ data }: InternalLinksTabProps) {
 
       {hubs.length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-foreground">Hub Page Strategies</h3>
-          <div className="space-y-2">
+          <h3 className="text-sm font-bold text-foreground">Hub Page Strategies</h3>
+          <div className="space-y-2.5">
             {hubs.map((hub, i) => <HubCard key={i} hub={hub} />)}
           </div>
         </div>
@@ -170,11 +182,11 @@ export default function InternalLinksTab({ data }: InternalLinksTabProps) {
 
       {genRecs.length > 0 && (
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-foreground">General Recommendations</h3>
-          <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-sm p-4 space-y-2">
+          <h3 className="text-sm font-bold text-foreground">General Recommendations</h3>
+          <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-5 space-y-3">
             {genRecs.map((r, i) => (
-              <div key={i} className="flex items-start gap-2 text-sm text-foreground">
-                <FiCheckCircle className="w-3.5 h-3.5 mt-0.5 text-emerald-500 flex-shrink-0" />
+              <div key={i} className="flex items-start gap-2.5 text-sm text-foreground leading-relaxed">
+                <FiCheckCircle className="w-4 h-4 mt-0.5 text-emerald-500 flex-shrink-0" />
                 {r}
               </div>
             ))}

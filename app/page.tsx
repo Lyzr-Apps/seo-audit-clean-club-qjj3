@@ -330,6 +330,30 @@ const TABS = [
 
 type TabId = 'content' | 'keywords' | 'meta' | 'links' | 'lighthouse' | 'developer'
 
+function ScoreGauge({ score }: { score: number }) {
+  const safeScore = score ?? 0
+  const radius = 54
+  const strokeWidth = 10
+  const circumference = 2 * Math.PI * radius
+  const progress = (safeScore / 100) * circumference
+  const offset = circumference - progress
+  const color = safeScore >= 70 ? '#059669' : safeScore >= 40 ? '#d97706' : '#dc2626'
+  const bgColor = safeScore >= 70 ? '#d1fae5' : safeScore >= 40 ? '#fef3c7' : '#fee2e2'
+
+  return (
+    <div className="relative flex-shrink-0">
+      <svg width="140" height="140" viewBox="0 0 128 128">
+        <circle cx="64" cy="64" r={radius} fill="none" stroke={bgColor} strokeWidth={strokeWidth} />
+        <circle cx="64" cy="64" r={radius} fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={offset} transform="rotate(-90 64 64)" />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-4xl font-bold" style={{ color }}>{safeScore}</span>
+        <span className="text-[11px] text-muted-foreground font-medium mt-0.5">out of 100</span>
+      </div>
+    </div>
+  )
+}
+
 export default function Page() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [data, setData] = useState<any>(null)
@@ -377,122 +401,163 @@ export default function Page() {
   return (
     <ErrorBoundary>
       <div className="min-h-screen font-sans" style={{ background: 'linear-gradient(135deg, hsl(160 40% 94%) 0%, hsl(180 35% 93%) 30%, hsl(160 35% 95%) 60%, hsl(140 40% 94%) 100%)' }}>
-        <div className="max-w-5xl mx-auto px-4 py-6 space-y-5">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+          {/* Header Row */}
           <div className="flex items-center justify-between gap-4">
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <HeaderSection urlAudited={displayData?.url_audited} />
             </div>
-            <div className="flex items-center gap-2 bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-md px-4 py-3">
-              <Label htmlFor="sample-toggle" className="text-xs text-muted-foreground whitespace-nowrap">Sample Data</Label>
+            <div className="flex items-center gap-3 bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm px-5 py-3">
+              <Label htmlFor="sample-toggle" className="text-xs font-medium text-muted-foreground whitespace-nowrap select-none cursor-pointer">Sample Data</Label>
               <Switch id="sample-toggle" checked={useSample} onCheckedChange={setUseSample} />
             </div>
           </div>
 
+          {/* Input Section */}
           <InputSection loading={loading} onSubmit={handleSubmit} />
 
+          {/* Loading State */}
           {loading && (
-            <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-md p-8 flex flex-col items-center gap-4">
-              <Loader2 className="w-8 h-8 animate-spin text-primary" />
-              <div className="text-center">
-                <p className="text-sm font-medium text-foreground">Analyzing content...</p>
-                <p className="text-xs text-muted-foreground mt-1">The manager agent is coordinating all sub-agents</p>
+            <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-10 flex flex-col items-center gap-5">
+              <div className="relative">
+                <div className="w-16 h-16 rounded-full border-4 border-primary/20" />
+                <div className="absolute inset-0 w-16 h-16 rounded-full border-4 border-transparent border-t-primary animate-spin" />
+                <Loader2 className="absolute inset-0 m-auto w-6 h-6 text-primary animate-spin" />
               </div>
-              <div className="w-full max-w-xs bg-muted rounded-full h-1.5 overflow-hidden">
-                <div className="h-full bg-primary rounded-full animate-pulse" style={{ width: '60%' }} />
+              <div className="text-center">
+                <p className="text-sm font-semibold text-foreground">Running SEO Audit...</p>
+                <p className="text-xs text-muted-foreground mt-1.5 max-w-xs">The manager agent is coordinating all sub-agents to analyze your website</p>
+              </div>
+              <div className="w-full max-w-xs bg-muted/50 rounded-full h-2 overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full animate-pulse" style={{ width: '65%' }} />
               </div>
             </div>
           )}
 
+          {/* Error State */}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-[0.875rem] p-5 flex items-start gap-3">
-              <FiAlertCircle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-red-800">Audit Failed</p>
-                <p className="text-sm text-red-600 mt-1">{error}</p>
+            <div className="bg-white/80 backdrop-blur-[20px] border border-red-200/60 rounded-2xl shadow-sm p-6 flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
+                <FiAlertCircle className="w-5 h-5 text-red-500" />
               </div>
-              <button onClick={handleRetry} className="flex items-center gap-1 text-sm text-red-700 hover:text-red-900 font-medium">
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-red-800">Audit Failed</p>
+                <p className="text-sm text-red-600 mt-1 leading-relaxed">{error}</p>
+              </div>
+              <button onClick={handleRetry} className="flex items-center gap-1.5 text-sm text-red-700 hover:text-red-900 font-medium bg-red-50 hover:bg-red-100 px-3 py-1.5 rounded-lg transition-colors flex-shrink-0">
                 <FiRefreshCw className="w-3.5 h-3.5" /> Retry
               </button>
             </div>
           )}
 
+          {/* Results */}
           {hasResults && !loading && (
             <>
+              {/* Executive Summary + Score */}
               {(displayData?.overall_score != null || displayData?.executive_summary) && (
-                <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-md p-5">
-                  <div className="flex items-center gap-5">
+                <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-6 sm:p-8">
+                  <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
                     {displayData?.overall_score != null && (
-                      <div className="flex flex-col items-center">
-                        <span className={`text-5xl font-bold ${(displayData.overall_score ?? 0) >= 70 ? 'text-emerald-600' : (displayData.overall_score ?? 0) >= 40 ? 'text-amber-600' : 'text-red-600'}`}>{displayData.overall_score}</span>
-                        <span className="text-xs text-muted-foreground mt-1">Overall Score</span>
-                      </div>
+                      <ScoreGauge score={displayData.overall_score} />
                     )}
-                    <div className="flex-1">
-                      <h2 className="font-semibold text-foreground text-sm mb-1">Executive Summary</h2>
+                    <div className="flex-1 text-center sm:text-left">
+                      <h2 className="font-bold text-foreground text-lg mb-2">Executive Summary</h2>
                       <p className="text-sm text-muted-foreground leading-relaxed">{displayData?.executive_summary ?? 'No summary available.'}</p>
+                      {displayData?.url_audited && (
+                        <p className="text-xs text-muted-foreground/70 mt-3 font-mono">{displayData.url_audited}</p>
+                      )}
                     </div>
                   </div>
                 </div>
               )}
 
+              {/* Priority Actions */}
               <PriorityActionsSection actions={displayData?.priority_actions} />
 
-              <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-md overflow-hidden">
-                <div className="flex border-b border-border overflow-x-auto">
-                  {TABS.map((tab) => {
-                    const Icon = tab.icon
-                    return (
-                      <button
-                        key={tab.id}
-                        onClick={() => setActiveTab(tab.id)}
-                        className={`flex items-center gap-2 px-5 py-3 text-sm font-medium whitespace-nowrap transition-colors border-b-2 ${activeTab === tab.id ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted'}`}
-                      >
-                        <Icon className="w-4 h-4" />
-                        {tab.label}
-                      </button>
-                    )
-                  })}
-                </div>
-                <ScrollArea className="max-h-[600px]">
-                  <div className="p-5">
-                    {activeTab === 'content' && <ContentAuditTab data={displayData?.content_audit} />}
-                    {activeTab === 'keywords' && <KeywordTab data={displayData?.keyword_research} />}
-                    {activeTab === 'meta' && <MetaTagsTab data={displayData?.meta_tags} />}
-                    {activeTab === 'links' && <InternalLinksTab data={displayData?.internal_linking} />}
-                    {activeTab === 'lighthouse' && <LighthouseTab data={displayData?.lighthouse} />}
-                    {activeTab === 'developer' && <DeveloperToolsTab data={displayData?.developer_seo} />}
+              {/* Tab Navigation + Content */}
+              <div className="space-y-3">
+                {/* Tab Bar */}
+                <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-2">
+                  <div className="flex gap-1 overflow-x-auto scrollbar-none">
+                    {TABS.map((tab) => {
+                      const Icon = tab.icon
+                      const isActive = activeTab === tab.id
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => setActiveTab(tab.id)}
+                          className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium whitespace-nowrap rounded-xl transition-all duration-200 ${isActive ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'}`}
+                        >
+                          <Icon className="w-4 h-4" />
+                          <span className="hidden sm:inline">{tab.label}</span>
+                        </button>
+                      )
+                    })}
                   </div>
-                </ScrollArea>
+                </div>
+
+                {/* Tab Content */}
+                <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm overflow-hidden">
+                  <ScrollArea className="max-h-[640px]">
+                    <div className="p-5 sm:p-6">
+                      {activeTab === 'content' && <ContentAuditTab data={displayData?.content_audit} />}
+                      {activeTab === 'keywords' && <KeywordTab data={displayData?.keyword_research} />}
+                      {activeTab === 'meta' && <MetaTagsTab data={displayData?.meta_tags} />}
+                      {activeTab === 'links' && <InternalLinksTab data={displayData?.internal_linking} />}
+                      {activeTab === 'lighthouse' && <LighthouseTab data={displayData?.lighthouse} />}
+                      {activeTab === 'developer' && <DeveloperToolsTab data={displayData?.developer_seo} />}
+                    </div>
+                  </ScrollArea>
+                </div>
               </div>
             </>
           )}
 
+          {/* Empty State */}
           {!hasResults && !loading && !error && (
-            <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-md p-10 text-center">
-              <FiSearch className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
-              <h3 className="font-semibold text-foreground mb-1">Ready to Optimize</h3>
-              <p className="text-sm text-muted-foreground max-w-md mx-auto">Enter a website URL above and click &quot;Run SEO Audit&quot; to get a comprehensive analysis of your content, keywords, meta tags, and internal linking strategy.</p>
+            <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-12 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center mx-auto mb-4">
+                <FiSearch className="w-7 h-7 text-primary/60" />
+              </div>
+              <h3 className="font-semibold text-foreground text-lg mb-2">Ready to Optimize</h3>
+              <p className="text-sm text-muted-foreground max-w-lg mx-auto leading-relaxed">Enter a website URL above and click &quot;Run SEO Audit&quot; to get a comprehensive analysis of your content, keywords, meta tags, and internal linking strategy.</p>
             </div>
           )}
 
-          <div className="bg-white/75 backdrop-blur-[16px] border border-white/[0.18] rounded-[0.875rem] shadow-sm p-4">
-            <div className="flex items-center gap-2 mb-3">
-              <FiActivity className="w-4 h-4 text-muted-foreground" />
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Agent Status</span>
+          {/* Agent Status */}
+          <div className="bg-white/80 backdrop-blur-[20px] border border-white/[0.22] rounded-2xl shadow-sm p-5">
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-7 h-7 rounded-lg bg-muted/60 flex items-center justify-center">
+                <FiActivity className="w-3.5 h-3.5 text-muted-foreground" />
+              </div>
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Agent Network</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-              {AGENTS.map((agent) => (
-                <div key={agent.id} className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/30">
-                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${activeAgentId === agent.id ? 'bg-amber-500 animate-pulse' : activeAgentId ? 'bg-emerald-500' : 'bg-muted-foreground/30'}`} />
-                  <div className="min-w-0">
-                    <p className="text-xs font-medium text-foreground truncate">{agent.name}</p>
-                    <p className="text-[10px] text-muted-foreground truncate">{agent.purpose}</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5">
+              {AGENTS.map((agent) => {
+                const isManager = agent.id === MANAGER_AGENT_ID
+                const isActive = activeAgentId === agent.id
+                return (
+                  <div
+                    key={agent.id}
+                    className={`relative flex items-start gap-2.5 px-3.5 py-3 rounded-xl transition-all duration-200 ${isManager ? 'bg-primary/[0.06] border border-primary/[0.12]' : 'bg-muted/30 border border-transparent hover:border-muted/60'}`}
+                  >
+                    <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 mt-0.5 ${isActive ? 'bg-amber-500 animate-pulse shadow-sm shadow-amber-500/40' : activeAgentId ? 'bg-emerald-500' : 'bg-muted-foreground/25'}`} />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-xs font-semibold text-foreground truncate">{agent.name}</p>
+                        {isManager && (
+                          <Badge variant="outline" className="text-[9px] px-1.5 py-0 h-4 border-primary/30 text-primary font-semibold flex-shrink-0">Manager</Badge>
+                        )}
+                      </div>
+                      <p className="text-[10px] text-muted-foreground leading-snug mt-0.5 line-clamp-2">{agent.purpose}</p>
+                    </div>
                   </div>
-                  {agent.id === MANAGER_AGENT_ID && <Badge variant="outline" className="text-[10px] ml-auto flex-shrink-0">Primary</Badge>}
-                </div>
-              ))}
+                )
+              })}
             </div>
           </div>
+
         </div>
       </div>
     </ErrorBoundary>
