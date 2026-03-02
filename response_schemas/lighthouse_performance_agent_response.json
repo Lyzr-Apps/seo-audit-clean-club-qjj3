@@ -1,0 +1,272 @@
+{
+  "agent_name": "Lighthouse Performance Agent",
+  "agent_id": "69a50f53227dc30e21e15eeb",
+  "description": "Performs comprehensive Lighthouse-style performance analysis including Core Web Vitals (LCP, FID, CLS, INP, TTFB), Performance score, Accessibility audit, Best Practices check, SEO technical score, and PWA readiness assessment",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "summary": "string",
+    "performance": {
+      "score": "number",
+      "metrics": {
+        "fcp": {
+          "value": "string",
+          "score": "number",
+          "status": "string"
+        },
+        "lcp": {
+          "value": "string",
+          "score": "number",
+          "status": "string"
+        },
+        "tbt": {
+          "value": "string",
+          "score": "number",
+          "status": "string"
+        },
+        "cls": {
+          "value": "string",
+          "score": "number",
+          "status": "string"
+        },
+        "inp": {
+          "value": "string",
+          "score": "number",
+          "status": "string"
+        },
+        "ttfb": {
+          "value": "string",
+          "score": "number",
+          "status": "string"
+        },
+        "speed_index": {
+          "value": "string",
+          "score": "number",
+          "status": "string"
+        }
+      },
+      "opportunities": [
+        {
+          "title": "string",
+          "description": "string",
+          "savings": "string",
+          "priority": "string"
+        }
+      ],
+      "diagnostics": [
+        {
+          "title": "string",
+          "description": "string",
+          "value": "string"
+        }
+      ]
+    },
+    "accessibility": {
+      "score": "number",
+      "issues": [
+        {
+          "title": "string",
+          "description": "string",
+          "severity": "string",
+          "elements_affected": "number"
+        }
+      ],
+      "passed_audits": [
+        "string"
+      ]
+    },
+    "best_practices": {
+      "score": "number",
+      "issues": [
+        {
+          "title": "string",
+          "description": "string",
+          "severity": "string"
+        }
+      ],
+      "passed_audits": [
+        "string"
+      ]
+    },
+    "seo_technical": {
+      "score": "number",
+      "issues": [
+        {
+          "title": "string",
+          "description": "string",
+          "severity": "string"
+        }
+      ],
+      "passed_audits": [
+        "string"
+      ]
+    },
+    "pwa": {
+      "score": "number",
+      "checks": [
+        {
+          "title": "string",
+          "status": "string",
+          "description": "string"
+        }
+      ]
+    },
+    "resource_summary": {
+      "total_requests": "number",
+      "total_size": "string",
+      "scripts": {
+        "count": "number",
+        "size": "string"
+      },
+      "stylesheets": {
+        "count": "number",
+        "size": "string"
+      },
+      "images": {
+        "count": "number",
+        "size": "string"
+      },
+      "fonts": {
+        "count": "number",
+        "size": "string"
+      },
+      "third_party": {
+        "count": "number",
+        "size": "string"
+      }
+    }
+  },
+  "example_response": {
+    "summary": "sample string",
+    "performance": {
+      "score": 0,
+      "metrics": {
+        "fcp": {
+          "value": "sample string",
+          "score": 0,
+          "status": "sample string"
+        },
+        "lcp": {
+          "value": "sample string",
+          "score": 0,
+          "status": "sample string"
+        },
+        "tbt": {
+          "value": "sample string",
+          "score": 0,
+          "status": "sample string"
+        },
+        "cls": {
+          "value": "sample string",
+          "score": 0,
+          "status": "sample string"
+        },
+        "inp": {
+          "value": "sample string",
+          "score": 0,
+          "status": "sample string"
+        },
+        "ttfb": {
+          "value": "sample string",
+          "score": 0,
+          "status": "sample string"
+        },
+        "speed_index": {
+          "value": "sample string",
+          "score": 0,
+          "status": "sample string"
+        }
+      },
+      "opportunities": [
+        {
+          "title": "sample string",
+          "description": "sample string",
+          "savings": "sample string",
+          "priority": "sample string"
+        }
+      ],
+      "diagnostics": [
+        {
+          "title": "sample string",
+          "description": "sample string",
+          "value": "sample string"
+        }
+      ]
+    },
+    "accessibility": {
+      "score": 0,
+      "issues": [
+        {
+          "title": "sample string",
+          "description": "sample string",
+          "severity": "sample string",
+          "elements_affected": 0
+        }
+      ],
+      "passed_audits": [
+        "sample string"
+      ]
+    },
+    "best_practices": {
+      "score": 0,
+      "issues": [
+        {
+          "title": "sample string",
+          "description": "sample string",
+          "severity": "sample string"
+        }
+      ],
+      "passed_audits": [
+        "sample string"
+      ]
+    },
+    "seo_technical": {
+      "score": 0,
+      "issues": [
+        {
+          "title": "sample string",
+          "description": "sample string",
+          "severity": "sample string"
+        }
+      ],
+      "passed_audits": [
+        "sample string"
+      ]
+    },
+    "pwa": {
+      "score": 0,
+      "checks": [
+        {
+          "title": "sample string",
+          "status": "sample string",
+          "description": "sample string"
+        }
+      ]
+    },
+    "resource_summary": {
+      "total_requests": 0,
+      "total_size": "sample string",
+      "scripts": {
+        "count": 0,
+        "size": "sample string"
+      },
+      "stylesheets": {
+        "count": 0,
+        "size": "sample string"
+      },
+      "images": {
+        "count": 0,
+        "size": "sample string"
+      },
+      "fonts": {
+        "count": 0,
+        "size": "sample string"
+      },
+      "third_party": {
+        "count": 0,
+        "size": "sample string"
+      }
+    }
+  }
+}

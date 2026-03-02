@@ -29,6 +29,20 @@
       "provider": "openai",
       "model": "gpt-4.1"
     },
+    "lighthouse_agent": {
+      "agent_id": "69a50f53227dc30e21e15eeb",
+      "name": "Lighthouse Performance Agent",
+      "type": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
+    "developer_seo_agent": {
+      "agent_id": "69a50f536f8bdb5f8163f9ad",
+      "name": "Developer SEO Agent",
+      "type": "sub-agent",
+      "provider": "openai",
+      "model": "gpt-4.1"
+    },
     "seo_audit_manager": {
       "agent_id": "69a50ac5b804714191c768f9",
       "name": "SEO Audit Manager",
@@ -39,7 +53,9 @@
         "69a50aa0c527182215353557",
         "69a50aa02524759877284058",
         "69a50aa1252475987728405a",
-        "69a50aa18074d73c14ba554f"
+        "69a50aa18074d73c14ba554f",
+        "69a50f53227dc30e21e15eeb",
+        "69a50f536f8bdb5f8163f9ad"
       ]
     }
   },
@@ -49,6 +65,8 @@
     "keyword_research_agent": "response_schemas/keyword_research_agent_response.json",
     "meta_tag_generator": "response_schemas/meta_tag_generator_agent_response.json",
     "internal_linking_agent": "response_schemas/internal_linking_agent_response.json",
+    "lighthouse_agent": "response_schemas/lighthouse_performance_agent_response.json",
+    "developer_seo_agent": "response_schemas/developer_seo_agent_response.json",
     "seo_audit_manager": "response_schemas/seo_audit_manager_response.json"
   }
 }

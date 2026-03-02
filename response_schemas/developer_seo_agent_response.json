@@ -1,0 +1,322 @@
+{
+  "agent_name": "Developer SEO Agent",
+  "agent_id": "69a50f536f8bdb5f8163f9ad",
+  "description": "Analyzes technical developer-focused SEO aspects including schema markup/structured data validation, robots.txt analysis, XML sitemap evaluation, canonical tag audit, hreflang implementation, Open Graph and Twitter Card meta, security headers review, mobile-friendliness, JavaScript rendering impact, and page speed technical factors",
+  "agent_type": "json",
+  "accessor": "result",
+  "auto_generated": true,
+  "response_schema": {
+    "summary": "string",
+    "schema_markup": {
+      "status": "string",
+      "existing_schemas": [
+        {
+          "type": "string",
+          "format": "string",
+          "valid": "boolean",
+          "issues": [
+            "string"
+          ]
+        }
+      ],
+      "recommended_schemas": [
+        {
+          "type": "string",
+          "reason": "string",
+          "code_snippet": "string"
+        }
+      ],
+      "rich_result_eligible": [
+        "string"
+      ]
+    },
+    "robots_txt": {
+      "status": "string",
+      "findings": [
+        "string"
+      ],
+      "issues": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "sitemap": {
+      "status": "string",
+      "url": "string",
+      "findings": [
+        "string"
+      ],
+      "issues": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "canonical_tags": {
+      "status": "string",
+      "findings": [
+        "string"
+      ],
+      "issues": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "hreflang": {
+      "status": "string",
+      "findings": [
+        "string"
+      ],
+      "issues": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "open_graph": {
+      "status": "string",
+      "tags_found": [
+        {
+          "property": "string",
+          "content": "string",
+          "valid": "boolean"
+        }
+      ],
+      "missing_tags": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "twitter_cards": {
+      "status": "string",
+      "tags_found": [
+        {
+          "property": "string",
+          "content": "string",
+          "valid": "boolean"
+        }
+      ],
+      "missing_tags": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "security_headers": {
+      "status": "string",
+      "headers": [
+        {
+          "name": "string",
+          "present": "boolean",
+          "value": "string",
+          "recommendation": "string"
+        }
+      ],
+      "score": "number"
+    },
+    "mobile_friendliness": {
+      "status": "string",
+      "findings": [
+        "string"
+      ],
+      "issues": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "js_rendering": {
+      "status": "string",
+      "rendering_type": "string",
+      "findings": [
+        "string"
+      ],
+      "issues": [
+        "string"
+      ],
+      "recommendations": [
+        "string"
+      ]
+    },
+    "page_speed_technical": {
+      "status": "string",
+      "findings": [
+        {
+          "factor": "string",
+          "status": "string",
+          "detail": "string"
+        }
+      ],
+      "recommendations": [
+        "string"
+      ]
+    }
+  },
+  "example_response": {
+    "summary": "sample string",
+    "schema_markup": {
+      "status": "sample string",
+      "existing_schemas": [
+        {
+          "type": "sample string",
+          "format": "sample string",
+          "valid": false,
+          "issues": [
+            "sample string"
+          ]
+        }
+      ],
+      "recommended_schemas": [
+        {
+          "type": "sample string",
+          "reason": "sample string",
+          "code_snippet": "sample string"
+        }
+      ],
+      "rich_result_eligible": [
+        "sample string"
+      ]
+    },
+    "robots_txt": {
+      "status": "sample string",
+      "findings": [
+        "sample string"
+      ],
+      "issues": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "sitemap": {
+      "status": "sample string",
+      "url": "sample string",
+      "findings": [
+        "sample string"
+      ],
+      "issues": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "canonical_tags": {
+      "status": "sample string",
+      "findings": [
+        "sample string"
+      ],
+      "issues": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "hreflang": {
+      "status": "sample string",
+      "findings": [
+        "sample string"
+      ],
+      "issues": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "open_graph": {
+      "status": "sample string",
+      "tags_found": [
+        {
+          "property": "sample string",
+          "content": "sample string",
+          "valid": false
+        }
+      ],
+      "missing_tags": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "twitter_cards": {
+      "status": "sample string",
+      "tags_found": [
+        {
+          "property": "sample string",
+          "content": "sample string",
+          "valid": false
+        }
+      ],
+      "missing_tags": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "security_headers": {
+      "status": "sample string",
+      "headers": [
+        {
+          "name": "sample string",
+          "present": false,
+          "value": "sample string",
+          "recommendation": "sample string"
+        }
+      ],
+      "score": 0
+    },
+    "mobile_friendliness": {
+      "status": "sample string",
+      "findings": [
+        "sample string"
+      ],
+      "issues": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "js_rendering": {
+      "status": "sample string",
+      "rendering_type": "sample string",
+      "findings": [
+        "sample string"
+      ],
+      "issues": [
+        "sample string"
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    },
+    "page_speed_technical": {
+      "status": "sample string",
+      "findings": [
+        {
+          "factor": "sample string",
+          "status": "sample string",
+          "detail": "sample string"
+        }
+      ],
+      "recommendations": [
+        "sample string"
+      ]
+    }
+  }
+}

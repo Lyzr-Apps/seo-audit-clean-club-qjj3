@@ -42,6 +42,20 @@
       "agent_id": "69a50aa18074d73c14ba554f"
     },
     {
+      "id": "lighthouse_agent",
+      "type": "Agent",
+      "label": "Lighthouse Performance Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69a50f53227dc30e21e15eeb"
+    },
+    {
+      "id": "developer_seo_agent",
+      "type": "Agent",
+      "label": "Developer SEO Agent",
+      "nodeCategory": "agent",
+      "agent_id": "69a50f536f8bdb5f8163f9ad"
+    },
+    {
       "id": "output_node",
       "type": "Output",
       "label": "SEO Audit Report",
@@ -54,9 +68,13 @@
     { "source": "seo_audit_manager", "target": "keyword_research_agent" },
     { "source": "seo_audit_manager", "target": "meta_tag_generator" },
     { "source": "seo_audit_manager", "target": "internal_linking_agent" },
+    { "source": "seo_audit_manager", "target": "lighthouse_agent" },
+    { "source": "seo_audit_manager", "target": "developer_seo_agent" },
     { "source": "content_audit_agent", "target": "output_node" },
     { "source": "keyword_research_agent", "target": "output_node" },
     { "source": "meta_tag_generator", "target": "output_node" },
-    { "source": "internal_linking_agent", "target": "output_node" }
+    { "source": "internal_linking_agent", "target": "output_node" },
+    { "source": "lighthouse_agent", "target": "output_node" },
+    { "source": "developer_seo_agent", "target": "output_node" }
   ]
 }

@@ -7,7 +7,7 @@ import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Loader2 } from 'lucide-react'
-import { FiSearch, FiFileText, FiLink, FiTag, FiAlertCircle, FiRefreshCw, FiActivity } from 'react-icons/fi'
+import { FiSearch, FiFileText, FiLink, FiTag, FiAlertCircle, FiRefreshCw, FiActivity, FiCode } from 'react-icons/fi'
 
 import HeaderSection from './sections/HeaderSection'
 import InputSection from './sections/InputSection'
@@ -16,6 +16,8 @@ import KeywordTab from './sections/KeywordTab'
 import MetaTagsTab from './sections/MetaTagsTab'
 import InternalLinksTab from './sections/InternalLinksTab'
 import PriorityActionsSection from './sections/PriorityActionsSection'
+import LighthouseTab from './sections/LighthouseTab'
+import DeveloperToolsTab from './sections/DeveloperToolsTab'
 
 const MANAGER_AGENT_ID = '69a50ac5b804714191c768f9'
 
@@ -25,6 +27,8 @@ const AGENTS = [
   { id: '69a50aa02524759877284058', name: 'Keyword Research Agent', purpose: 'Discovers keyword opportunities and search trends' },
   { id: '69a50aa1252475987728405a', name: 'Meta Tag Generator', purpose: 'Generates optimized meta titles and descriptions' },
   { id: '69a50aa18074d73c14ba554f', name: 'Internal Linking Agent', purpose: 'Suggests internal linking opportunities' },
+  { id: '69a50f53227dc30e21e15eeb', name: 'Lighthouse Performance Agent', purpose: 'Core Web Vitals, accessibility, best practices, PWA analysis' },
+  { id: '69a50f536f8bdb5f8163f9ad', name: 'Developer SEO Agent', purpose: 'Schema markup, robots.txt, security headers, technical SEO' },
 ]
 
 const SAMPLE_DATA = {
@@ -86,6 +90,175 @@ const SAMPLE_DATA = {
       { topic_cluster: 'SEO Fundamentals', hub_page: '/blog/seo-guide', spoke_pages: ['/blog/on-page-seo', '/blog/technical-seo', '/blog/keyword-research-guide', '/blog/local-seo-tips'], recommendation: 'Create a comprehensive hub page linking to all spoke pages, with each spoke linking back to the hub.' },
     ],
     general_recommendations: ['Add breadcrumb navigation for improved site structure', 'Use descriptive anchor text instead of generic "click here"', 'Aim for 3-5 internal links per 1,000 words', 'Regularly audit for broken internal links'],
+  },
+  lighthouse: {
+    summary: 'The website demonstrates moderate performance with room for improvement in Core Web Vitals. Accessibility needs attention with several WCAG violations. Best practices score is strong.',
+    performance: {
+      score: 68,
+      metrics: {
+        fcp: { value: '1.8s', score: 72, status: 'needs-improvement' },
+        lcp: { value: '3.2s', score: 45, status: 'poor' },
+        tbt: { value: '180ms', score: 78, status: 'needs-improvement' },
+        cls: { value: '0.08', score: 85, status: 'good' },
+        inp: { value: '210ms', score: 65, status: 'needs-improvement' },
+        ttfb: { value: '0.6s', score: 70, status: 'needs-improvement' },
+        speed_index: { value: '2.4s', score: 72, status: 'needs-improvement' },
+      },
+      opportunities: [
+        { title: 'Serve images in next-gen formats', description: 'Image formats like WebP and AVIF often provide better compression than PNG or JPEG.', savings: '~420 KB', priority: 'high' },
+        { title: 'Eliminate render-blocking resources', description: '2 CSS files and 3 JavaScript files are blocking the first paint of your page.', savings: '~1.2s', priority: 'high' },
+        { title: 'Reduce unused JavaScript', description: 'Reduce unused JavaScript and defer loading scripts until needed.', savings: '~180 KB', priority: 'medium' },
+        { title: 'Enable text compression', description: 'Text-based resources should be served with compression (gzip, brotli).', savings: '~90 KB', priority: 'medium' },
+      ],
+      diagnostics: [
+        { title: 'DOM Size', description: 'A large DOM will increase memory usage and produce costly layout reflows.', value: '1,847 elements' },
+        { title: 'JavaScript execution time', description: 'Consider reducing the time spent parsing, compiling, and executing JS.', value: '2.1s' },
+        { title: 'Critical request chains', description: 'Chains with depth 4 found, potentially delaying above-the-fold content.', value: 'Depth: 4' },
+      ],
+    },
+    accessibility: {
+      score: 72,
+      issues: [
+        { title: 'Image elements do not have [alt] attributes', description: '3 image elements found without alt attributes.', severity: 'critical', elements_affected: 3 },
+        { title: 'Background and foreground colors lack contrast ratio', description: 'Low-contrast text found on 5 elements.', severity: 'warning', elements_affected: 5 },
+        { title: 'Form elements do not have associated labels', description: '2 form inputs missing associated label elements.', severity: 'critical', elements_affected: 2 },
+        { title: 'Links do not have discernible names', description: '1 link element found without accessible text.', severity: 'warning', elements_affected: 1 },
+      ],
+      passed_audits: ['Document has a valid lang attribute', 'Meta viewport allows zoom', 'Heading elements appear in sequentially-descending order', 'ARIA attributes are used correctly', 'Tab order follows DOM order'],
+    },
+    best_practices: {
+      score: 85,
+      issues: [
+        { title: 'Uses deprecated APIs', description: 'The page uses document.write() which can delay page rendering.', severity: 'warning' },
+        { title: 'Browser errors logged to console', description: '3 JavaScript errors detected in browser console.', severity: 'warning' },
+      ],
+      passed_audits: ['Uses HTTPS', 'No detected JavaScript libraries with known vulnerabilities', 'Page has the HTML doctype', 'Allows paste in password fields', 'Displays images with correct aspect ratios'],
+    },
+    seo_technical: {
+      score: 78,
+      issues: [
+        { title: 'Document does not have a meta description', description: 'Meta descriptions can be included in search results to summarize page content.', severity: 'warning' },
+        { title: 'Links are not crawlable', description: '2 links use JavaScript URLs that search engines cannot follow.', severity: 'critical' },
+      ],
+      passed_audits: ['Document has a valid title', 'Has a viewport meta tag', 'Document uses legible font sizes', 'Tap targets are sized appropriately', 'robots.txt is valid'],
+    },
+    pwa: {
+      score: 32,
+      checks: [
+        { title: 'Registers a service worker', status: 'fail', description: 'No service worker registration detected.' },
+        { title: 'Web app manifest', status: 'fail', description: 'No manifest.json or manifest.webmanifest found.' },
+        { title: 'Redirects HTTP to HTTPS', status: 'pass', description: 'HTTP traffic is properly redirected to HTTPS.' },
+        { title: 'Sets a theme-color meta tag', status: 'fail', description: 'No theme-color meta tag found.' },
+        { title: 'Content sized correctly for viewport', status: 'pass', description: 'Content width matches viewport width.' },
+      ],
+    },
+    resource_summary: {
+      total_requests: 47,
+      total_size: '2.4 MB',
+      scripts: { count: 12, size: '890 KB' },
+      stylesheets: { count: 5, size: '220 KB' },
+      images: { count: 18, size: '1.1 MB' },
+      fonts: { count: 4, size: '160 KB' },
+      third_party: { count: 8, size: '340 KB' },
+    },
+  },
+  developer_seo: {
+    summary: 'Technical SEO implementation has several gaps. Schema markup is incomplete, security headers need enhancement, and social meta tags are partially configured. robots.txt and sitemap are properly set up.',
+    schema_markup: {
+      status: 'warning',
+      existing_schemas: [
+        { type: 'Organization', format: 'JSON-LD', valid: true, issues: [] },
+        { type: 'WebPage', format: 'JSON-LD', valid: false, issues: ['Missing required property: datePublished', 'Missing recommended property: author'] },
+      ],
+      recommended_schemas: [
+        { type: 'Article', reason: 'Blog content should use Article schema for rich search results', code_snippet: '{\n  "@context": "https://schema.org",\n  "@type": "Article",\n  "headline": "Your Article Title",\n  "author": {\n    "@type": "Person",\n    "name": "Author Name"\n  },\n  "datePublished": "2024-01-15",\n  "image": "https://example.com/image.jpg"\n}' },
+        { type: 'BreadcrumbList', reason: 'Enables breadcrumb rich results in Google Search', code_snippet: '{\n  "@context": "https://schema.org",\n  "@type": "BreadcrumbList",\n  "itemListElement": [{\n    "@type": "ListItem",\n    "position": 1,\n    "name": "Home",\n    "item": "https://example.com"\n  }]\n}' },
+        { type: 'FAQ', reason: 'FAQ sections can trigger FAQ rich results with expandable answers', code_snippet: '{\n  "@context": "https://schema.org",\n  "@type": "FAQPage",\n  "mainEntity": [{\n    "@type": "Question",\n    "name": "What is SEO?",\n    "acceptedAnswer": {\n      "@type": "Answer",\n      "text": "SEO stands for..."\n    }\n  }]\n}' },
+      ],
+      rich_result_eligible: ['Article', 'Breadcrumb', 'FAQ', 'Sitelinks Search Box'],
+    },
+    robots_txt: {
+      status: 'pass',
+      findings: ['robots.txt found at /robots.txt', 'Sitemap reference included', 'User-agent directives properly formatted'],
+      issues: [],
+      recommendations: ['Consider adding Crawl-delay directive for aggressive bots', 'Add specific disallow rules for admin/login pages'],
+    },
+    sitemap: {
+      status: 'pass',
+      url: 'https://example.com/sitemap.xml',
+      findings: ['Sitemap found and accessible', '156 URLs indexed', 'lastmod dates present on all entries'],
+      issues: ['changefreq attribute is deprecated by Google', '3 URLs return 404 status codes'],
+      recommendations: ['Remove 404 URLs from sitemap', 'Remove changefreq as it is ignored by Google', 'Add image sitemap entries for visual content'],
+    },
+    canonical_tags: {
+      status: 'warning',
+      findings: ['Canonical tag present on main page', 'Self-referencing canonical detected'],
+      issues: ['3 pages missing canonical tags', 'Canonical points to HTTP instead of HTTPS on 2 pages'],
+      recommendations: ['Add canonical tags to all pages', 'Ensure all canonicals use HTTPS URLs', 'Fix non-self-referencing canonical inconsistencies'],
+    },
+    hreflang: {
+      status: 'warning',
+      findings: ['No hreflang tags detected on any pages'],
+      issues: ['International versions of the site exist but have no hreflang configuration'],
+      recommendations: ['Add hreflang tags for each language version', 'Include x-default tag for fallback', 'Ensure return tags are present on all referenced pages'],
+    },
+    open_graph: {
+      status: 'warning',
+      tags_found: [
+        { property: 'og:title', content: 'SEO Guide - Our Blog', valid: true },
+        { property: 'og:type', content: 'article', valid: true },
+        { property: 'og:url', content: 'https://example.com/blog/seo-guide', valid: true },
+      ],
+      missing_tags: ['og:description', 'og:image', 'og:site_name', 'og:locale'],
+      recommendations: ['Add og:description matching meta description', 'Add og:image with 1200x630px dimensions', 'Add og:site_name for brand consistency'],
+    },
+    twitter_cards: {
+      status: 'fail',
+      tags_found: [
+        { property: 'twitter:card', content: 'summary', valid: true },
+      ],
+      missing_tags: ['twitter:title', 'twitter:description', 'twitter:image', 'twitter:site'],
+      recommendations: ['Upgrade to twitter:card summary_large_image for better visibility', 'Add all required Twitter Card meta tags', 'Validate with Twitter Card Validator tool'],
+    },
+    security_headers: {
+      status: 'warning',
+      headers: [
+        { name: 'Strict-Transport-Security', present: true, value: 'max-age=31536000; includeSubDomains', recommendation: 'Consider adding preload directive' },
+        { name: 'Content-Security-Policy', present: false, value: '', recommendation: 'Add CSP header to prevent XSS attacks' },
+        { name: 'X-Content-Type-Options', present: true, value: 'nosniff', recommendation: 'Properly configured' },
+        { name: 'X-Frame-Options', present: true, value: 'SAMEORIGIN', recommendation: 'Properly configured' },
+        { name: 'Referrer-Policy', present: false, value: '', recommendation: 'Add strict-origin-when-cross-origin policy' },
+        { name: 'Permissions-Policy', present: false, value: '', recommendation: 'Add to restrict browser feature access' },
+      ],
+      score: 50,
+    },
+    mobile_friendliness: {
+      status: 'pass',
+      findings: ['Viewport meta tag properly configured', 'Content sized correctly for viewport', 'Font sizes are legible'],
+      issues: ['2 tap targets are too small (below 48x48px)', 'Horizontal scrolling detected on small screens'],
+      recommendations: ['Increase tap target sizes to minimum 48x48px', 'Fix horizontal overflow on mobile viewports', 'Test with Chrome DevTools device emulation'],
+    },
+    js_rendering: {
+      status: 'warning',
+      rendering_type: 'CSR',
+      findings: ['Page uses client-side rendering (React SPA)', 'Initial HTML contains minimal content', 'Full content requires JavaScript execution'],
+      issues: ['Search engines may not fully render JavaScript content', 'Time to meaningful content depends on JS bundle loading'],
+      recommendations: ['Implement Server-Side Rendering (SSR) or Static Site Generation (SSG)', 'Use dynamic rendering for search engine bots', 'Add pre-rendering for critical pages', 'Ensure meta tags are server-rendered'],
+    },
+    page_speed_technical: {
+      status: 'warning',
+      findings: [
+        { factor: 'HTTP/2', status: 'pass', detail: 'HTTP/2 protocol detected' },
+        { factor: 'Compression', status: 'warning', detail: 'Gzip enabled but Brotli not configured' },
+        { factor: 'Image Format', status: 'fail', detail: '12 images use JPEG/PNG instead of WebP/AVIF' },
+        { factor: 'CSS Minification', status: 'pass', detail: 'All CSS files are minified' },
+        { factor: 'JS Minification', status: 'pass', detail: 'All JavaScript files are minified' },
+        { factor: 'Critical CSS', status: 'fail', detail: 'No critical CSS inlining detected' },
+        { factor: 'Preload Hints', status: 'warning', detail: 'Only 1 preload hint found, LCP image not preloaded' },
+        { factor: 'CDN', status: 'pass', detail: 'CloudFlare CDN detected' },
+      ],
+      recommendations: ['Enable Brotli compression for better savings', 'Convert images to WebP/AVIF format', 'Inline critical CSS for above-the-fold content', 'Add preload hints for LCP image and critical fonts'],
+    },
   },
   priority_actions: [
     { action: 'Fix image alt text on all pages', category: 'Content', impact: 'high', effort: 'low' },
@@ -151,9 +324,11 @@ const TABS = [
   { id: 'keywords' as const, label: 'Keywords', icon: FiSearch },
   { id: 'meta' as const, label: 'Meta Tags', icon: FiTag },
   { id: 'links' as const, label: 'Internal Links', icon: FiLink },
+  { id: 'lighthouse' as const, label: 'Lighthouse', icon: FiActivity },
+  { id: 'developer' as const, label: 'Developer', icon: FiCode },
 ]
 
-type TabId = 'content' | 'keywords' | 'meta' | 'links'
+type TabId = 'content' | 'keywords' | 'meta' | 'links' | 'lighthouse' | 'developer'
 
 export default function Page() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -284,6 +459,8 @@ export default function Page() {
                     {activeTab === 'keywords' && <KeywordTab data={displayData?.keyword_research} />}
                     {activeTab === 'meta' && <MetaTagsTab data={displayData?.meta_tags} />}
                     {activeTab === 'links' && <InternalLinksTab data={displayData?.internal_linking} />}
+                    {activeTab === 'lighthouse' && <LighthouseTab data={displayData?.lighthouse} />}
+                    {activeTab === 'developer' && <DeveloperToolsTab data={displayData?.developer_seo} />}
                   </div>
                 </ScrollArea>
               </div>
